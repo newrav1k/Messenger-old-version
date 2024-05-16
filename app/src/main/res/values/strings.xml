@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Мессенджер</string>
+    <string name="developers">Крицкий Кирилл Сергеевич\nНисанов Даниил Андреевич\nРИБО–04–22</string>
+    <string name="task">Индивидуальное задание. Разработать Android-приложение для обмена текстовыми сообщениями между пользователями.</string>
+
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="authorization">Авторизоваться!</string>
+    <string name="github_message">Открыть проект на github</string>
+
+    <string name="action_person">Профиль</string>
+    <string name="action_mail_outline">Сообщения</string>
+    <string name="action_settings">Настройки</string>
+
+</resources>

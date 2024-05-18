@@ -1,103 +1,79 @@
 package com.mirea.kt.ribo;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.firebase.auth.FirebaseAuth;
+import com.mirea.kt.ribo.databinding.ActivityLoginBinding;
 
-import java.io.IOException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
-    private static final String ADDRESS = "https://android-for-students.ru/coursework/login.php";
-    private static final String GROUP = "RIBO-04-22";
+
+    private ActivityLoginBinding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        Button authorization_button = findViewById(R.id.authorization_button);
-        Button github_button = findViewById(R.id.github_button);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
 
-        EditText tv_login = findViewById(R.id.login);
-        EditText tv_password = findViewById(R.id.password);
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
-        authorization_button.setOnClickListener(v -> {
-            String lgn = tv_login.getText().toString();
-            String pwd = tv_password.getText().toString();
-            if (!lgn.isEmpty() && !pwd.isEmpty()) {
-                if (lgn.equals("admin") && pwd.equals("root")) {
-                    startActivity(new Intent(getApplicationContext(), MessengerActivity.class));
-                }
-                else {
-                    OkHttpClient client = new OkHttpClient();
-                    RequestBody requestBody = new FormBody.Builder()
-                            .add("lgn", lgn)
-                            .add("pwd", pwd)
-                            .add("g", GROUP)
-                            .build();
-                    Request request = new Request.Builder()
-                            .url(ADDRESS)
-                            .post(requestBody)
-                            .build();
-                    Executor executor = Executors.newSingleThreadExecutor();
-                    executor.execute(() -> {
-                        try {
-                            Response response = client.newCall(request).execute();
-                            if (response.isSuccessful()) {
-                                ResponseBody body = response.body();
-                                assert body != null;
-                                try {
-                                    JSONObject jsonObject = new JSONObject(body.string());
-                                    if (jsonObject.getInt("result_code") == 1) {
-                                        startActivity(new Intent(getApplicationContext(), MessengerActivity.class));
-                                    } else {
-                                        displayToast("Неверный логин или пароль");
-                                    }
-                                } catch (JSONException | NullPointerException ignore) {
-
-                                }
-                            } else {
-                                displayToast("Не удалось подключиться к серверу");
+        binding.loginButton.setOnClickListener(v -> {
+            String email = Objects.requireNonNull(binding.emailEdittext.getText()).toString();
+            String password = Objects.requireNonNull(binding.passwordEdittext.getText()).toString();
+            if (!email.isEmpty() && !password.isEmpty()) {
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(), R.string.successful_authorization, Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(getApplicationContext(), MessengerActivity.class));
                             }
-                        } catch (IOException exception) {
-                            displayToast("Не удалось отправить запрос");
-                        }
-                    });
-                }
+                            else {
+                                Toast.makeText(getApplicationContext(), R.string.incorrect_email_or_password, Toast.LENGTH_LONG).show();
+                            }
+                        });
             }
             else {
-                //Toast.makeText(getApplicationContext(), "Поля должны быть заполнены!", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(), MessengerActivity.class));
+                Toast.makeText(getApplicationContext(), R.string.empty_fields, Toast.LENGTH_LONG).show();
             }
         });
-        github_button.setOnClickListener(v -> {
-            Uri uri = Uri.parse("https://github.com/newrav1k/Android_devOps/tree/master/Messenger");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-        });
+        binding.registerButton.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), RegisterActivity.class)));
     }
 
-    private void displayToast(String text) {
-        // You CANNOT show a Toast on non-UI thread. You need to call Toast.makeText() (and most other functions dealing with the UI) from within the main thread.
-        new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show());
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.simple_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

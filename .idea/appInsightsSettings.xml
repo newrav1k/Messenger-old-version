@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.mirea.kt.ribo" />
+                  <option name="mobileSdkAppId" value="1:649438541733:android:c1da79a434f6bf2c2e5a4c" />
+                  <option name="projectId" value="messenger-47d2b" />
+                  <option name="projectNumber" value="649438541733" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

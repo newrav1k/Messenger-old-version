@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "649438541733",
+    "firebase_url": "https://messenger-47d2b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "messenger-47d2b",
+    "storage_bucket": "messenger-47d2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649438541733:android:c1da79a434f6bf2c2e5a4c",
+        "android_client_info": {
+          "package_name": "com.mirea.kt.ribo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvwNW1psmwvbCRMwOaEsEN8zDrUTk5GBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

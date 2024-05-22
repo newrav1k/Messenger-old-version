@@ -14,6 +14,7 @@
     <string name="register">Регистрация</string>
 
     <!-- Для экрана регистрации -->
+    <string name="profile_image">Фото профиля</string>
     <string name="email">Адрес электронной почты</string>
     <string name="confirm_password">Подтвердите пароль</string>
 
@@ -21,6 +22,9 @@
     <string name="action_person">Профиль</string>
     <string name="action_mail_outline">Сообщения</string>
     <string name="action_settings">Настройки</string>
+
+    <!-- Для фрагмента профиля -->
+    <string name="friends">Друзья</string>
 
     <!-- Для фрагмента настроек -->
     <string name="settings_title">Настройки</string>
@@ -37,11 +41,14 @@
 
     <!-- Toast's -->
     <string name="transition_in_progress">Выполняется переход…</string>
+    <string name="student_authorization">Студент авторизовался!</string>
+    <string name="photo_uploaded_successfully">Фотография успешно загружена!</string>
     <string name="failed_to_send_request">Не удалось отправить запрос!</string>
     <string name="error_processing_request">Возникла ошибка при обработке запроса!</string>
     <string name="failed_to_connect_to_server">Не удалось подключиться к серверу!</string>
     <string name="successful_authorization">Вы успешно авторизовались!</string>
     <string name="successful_registration">Регистрация прошла успешно!</string>
+    <string name="account_already_exists">Этот аккаунт уже существует!</string>
     <string name="empty_fields">Поля должны быть заполнены!</string>
     <string name="incorrect_email_or_password">Неверный email или пароль!</string>
     <string name="incorrect_login_or_password">Неверный логин или пароль!</string>

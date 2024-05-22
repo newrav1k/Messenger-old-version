@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
                                 try {
                                     JSONObject jsonObject = new JSONObject(body.string());
                                     if (jsonObject.getInt("result_code") == 1) {
-                                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                        displayToast(R.string.student_authorization);
+                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                     }
                                     else {
                                         displayToast(R.string.incorrect_login_or_password);

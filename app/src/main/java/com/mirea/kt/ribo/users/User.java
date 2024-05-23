@@ -1,7 +1,8 @@
 package com.mirea.kt.ribo.users;
 
-public class User {
-    private String userId;
+import java.util.Comparator;
+
+public class User implements Comparator<User> {
     private String username;
     private String profileImage;
 
@@ -16,5 +17,10 @@ public class User {
 
     public String getProfileImage() {
         return profileImage;
+    }
+
+    @Override
+    public int compare(User o1, User o2) {
+        return o1.getUsername().compareTo(o2.getUsername());
     }
 }

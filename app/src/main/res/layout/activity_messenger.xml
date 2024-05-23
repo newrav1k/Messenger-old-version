@@ -30,8 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/cardview_dark_background"
             app:menu="@menu/bottom_navigation_menu"
+            android:backgroundTint="@color/cardview_dark_background"
             app:itemActiveIndicatorStyle="@color/design_default_color_error"/>
 
     </LinearLayout>

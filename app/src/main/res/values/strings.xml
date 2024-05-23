@@ -23,6 +23,10 @@
     <string name="action_mail_outline">Сообщения</string>
     <string name="action_settings">Настройки</string>
 
+    <!-- Для TopNavigationView -->
+    <string name="all_users">Все пользователи</string>
+    <string name="yours_chats">Ваши чаты</string>
+
     <!-- Для фрагмента профиля -->
     <string name="friends">Друзья</string>
 

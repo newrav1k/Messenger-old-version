@@ -4,25 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.mirea.kt.ribo.R;
+import com.mirea.kt.ribo.chats.ChatsFragment;
 import com.mirea.kt.ribo.databinding.FragmentMessengerBinding;
-import com.mirea.kt.ribo.users.User;
-import com.mirea.kt.ribo.users.UserAdapter;
+import com.mirea.kt.ribo.users.UsersFragment;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class MessengerFragment extends Fragment {
 
@@ -33,44 +26,20 @@ public class MessengerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentMessengerBinding.inflate(inflater, container, false);
 
-        loadUsers();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(binding.fragmentMessenger.getId(), new UsersFragment()).commit();
+        binding.topNavigationView.setSelectedItemId(R.id.users);
+
+        HashMap<Integer, Fragment> fragments = new HashMap<Integer, Fragment>() {{
+            put(R.id.users, new UsersFragment());
+            put(R.id.chats, new ChatsFragment());
+        }};
+
+        binding.topNavigationView.setOnItemSelectedListener(item -> {
+            Fragment fragment = fragments.get(item.getItemId());
+            getActivity().getSupportFragmentManager().beginTransaction().replace(binding.fragmentMessenger.getId(), Objects.requireNonNull(fragment)).commit();
+            return true;
+        });
 
         return binding.getRoot();
-    }
-
-    private void loadUsers() {
-        ArrayList<User> users = new ArrayList<>();
-
-        FirebaseDatabase.getInstance().getReference()
-                .child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-                            if (userSnapshot.getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                                continue;
-                            }
-
-                            String username = userSnapshot.child("username").getValue().toString();
-                            String profile_image = userSnapshot.child("profile_image").getValue().toString();
-
-                            users.add(new User(username, profile_image));
-                        }
-                        UserAdapter.onUserClickListener onUserClickListener = new UserAdapter.onUserClickListener() {
-                            @Override
-                            public void onUserClickListener(User user, int position) {
-                                Toast.makeText(getContext(), "Выбран пользователь " + user.getUsername(), Toast.LENGTH_LONG).show();
-                            }
-                        };
-
-                        binding.users.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-                        binding.users.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-                        binding.users.setAdapter(new UserAdapter(users, onUserClickListener));
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
     }
 }

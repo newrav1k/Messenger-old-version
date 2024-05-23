@@ -3,10 +3,17 @@ package com.mirea.kt.ribo.users;
 import java.util.Comparator;
 
 public class User implements Comparator<User> {
+    private String userId;
     private String username;
     private String profileImage;
 
     public User(String username, String profileImage) {
+        this.username = username;
+        this.profileImage = profileImage;
+    }
+
+    public User(String userId, String username, String profileImage) {
+        this.userId = userId;
         this.username = username;
         this.profileImage = profileImage;
     }
@@ -17,6 +24,10 @@ public class User implements Comparator<User> {
 
     public String getProfileImage() {
         return profileImage;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     @Override

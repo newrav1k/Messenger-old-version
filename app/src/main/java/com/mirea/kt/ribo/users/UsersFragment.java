@@ -50,10 +50,11 @@ public class UsersFragment extends Fragment {
                                 continue;
                             }
 
+                            String userId = userSnapshot.getKey();
                             String username = userSnapshot.child("username").getValue().toString();
                             String profile_image = userSnapshot.child("profile_image").getValue().toString();
 
-                            users.add(new User(username, profile_image));
+                            users.add(new User(userId, username, profile_image));
                         }
                         UserAdapter.onUserClickListener onUserClickListener = new UserAdapter.onUserClickListener() {
                             @Override

@@ -65,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 .addOnCompleteListener(task -> {
                                     if (task.isSuccessful()) {
                                         HashMap<String, String> user_info = new HashMap<String, String>() {{
+                                            put("chats", "");
                                             put("email", email);
                                             put("username", username);
                                             put("profile_image", "");

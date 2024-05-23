@@ -9,9 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.mirea.kt.ribo.R;
+import com.mirea.kt.ribo.utils.ChatUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,21 +44,22 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = users.get(position);
 
-        holder.username.setText(users.get(position).getUsername());
+        holder.username.setText(user.getUsername());
 
-        if (!users.get(position).getProfileImage().isEmpty()) {
+        if (!user.getProfileImage().isEmpty()) {
             Glide.with(holder.itemView.getContext())
-                    .load(users.get(position).getProfileImage())
+                    .load(user.getProfileImage())
                     .into(holder.profile_image);
         }
 
-        holder.itemView.setOnClickListener(v -> onUserClickListener.onUserClickListener(user, holder.getAdapterPosition()));
+        holder.itemView.setOnClickListener(v -> ChatUtil.createChat(user));
     }
 
     @Override
     public int getItemCount() {
         return users.size();
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 

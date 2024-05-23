@@ -47,7 +47,7 @@ public class ChatsFragment extends Fragment {
                 String[] chatsIds = chatsStr.split(",");
 
                 for (String chatId : chatsIds) {
-                    DataSnapshot chatSnapshot = snapshot.child("chats").child(chatId);
+                    DataSnapshot chatSnapshot = snapshot.child("Chats").child(chatId);
                     String userId1 = Objects.requireNonNull(chatSnapshot.child("user1").getValue()).toString();
                     String userId2 = Objects.requireNonNull(chatSnapshot.child("user2").getValue()).toString();
 

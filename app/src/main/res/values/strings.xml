@@ -41,9 +41,11 @@
 
     <!-- Toast's -->
     <string name="transition_in_progress">Выполняется переход…</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
     <string name="student_authorization">Студент авторизовался!</string>
     <string name="photo_uploaded_successfully">Фотография успешно загружена!</string>
     <string name="failed_to_send_request">Не удалось отправить запрос!</string>
+    <string name="error_receiving_chats">Ошибка получения чатов!</string>
     <string name="error_processing_request">Возникла ошибка при обработке запроса!</string>
     <string name="failed_to_connect_to_server">Не удалось подключиться к серверу!</string>
     <string name="successful_authorization">Вы успешно авторизовались!</string>

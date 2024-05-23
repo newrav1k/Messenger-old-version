@@ -74,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                 .child("Users")
                                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                                 .setValue(user_info);
+                                        uploadImage();
                                         Toast.makeText(getApplicationContext(), R.string.successful_registration, Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(getApplicationContext(), MessengerActivity.class));
                                     }
@@ -118,7 +119,6 @@ public class RegisterActivity extends AppCompatActivity {
                     } catch (IOException exception) {
                         Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                    uploadImage();
                 }
             });
 

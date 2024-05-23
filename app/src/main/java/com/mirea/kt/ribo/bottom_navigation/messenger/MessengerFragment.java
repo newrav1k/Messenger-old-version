@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,8 +18,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.mirea.kt.ribo.R;
 import com.mirea.kt.ribo.databinding.FragmentMessengerBinding;
 import com.mirea.kt.ribo.users.User;
 import com.mirea.kt.ribo.users.UserAdapter;
@@ -56,9 +55,16 @@ public class MessengerFragment extends Fragment {
 
                             users.add(new User(username, profile_image));
                         }
+                        UserAdapter.onUserClickListener onUserClickListener = new UserAdapter.onUserClickListener() {
+                            @Override
+                            public void onUserClickListener(User user, int position) {
+                                Toast.makeText(getContext(), "Выбран пользователь " + user.getUsername(), Toast.LENGTH_LONG).show();
+                            }
+                        };
+
                         binding.users.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
                         binding.users.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-                        binding.users.setAdapter(new UserAdapter(users));
+                        binding.users.setAdapter(new UserAdapter(users, onUserClickListener));
                     }
 
                     @Override

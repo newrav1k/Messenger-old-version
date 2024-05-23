@@ -18,13 +18,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public interface onUserClickListener {
-        void userClick();
+        void onUserClickListener(User user, int position);
     }
 
+    private onUserClickListener onUserClickListener;
     private ArrayList<User> users;
 
-    public UserAdapter(ArrayList<User> users) {
+    public UserAdapter(ArrayList<User> users, onUserClickListener onUserClickListener) {
         this.users = users;
+        this.onUserClickListener = onUserClickListener;
     }
 
     @NonNull
@@ -36,6 +38,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        User user = users.get(position);
+
         holder.username.setText(users.get(position).getUsername());
 
         if (!users.get(position).getProfileImage().isEmpty()) {
@@ -43,6 +47,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     .load(users.get(position).getProfileImage())
                     .into(holder.profile_image);
         }
+
+        holder.itemView.setOnClickListener(v -> onUserClickListener.onUserClickListener(user, holder.getAdapterPosition()));
     }
 
     @Override

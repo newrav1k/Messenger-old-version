@@ -30,6 +30,9 @@
     <!-- Для фрагмента профиля -->
     <string name="friends">Друзья</string>
 
+    <!-- Для чата -->
+    <string name="message">Сообщение</string>
+
     <!-- Для фрагмента настроек -->
     <string name="settings_title">Настройки</string>
     <string name="profile_settings">Настройки профиля</string>

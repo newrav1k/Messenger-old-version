@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getApplicationContext(), R.string.successful_authorization, Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(getApplicationContext(), MessengerActivity.class));
+                                finish();
                             }
                             else {
                                 Toast.makeText(getApplicationContext(), R.string.incorrect_email_or_password, Toast.LENGTH_LONG).show();

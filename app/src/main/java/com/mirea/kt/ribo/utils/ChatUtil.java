@@ -1,15 +1,9 @@
 package com.mirea.kt.ribo.utils;
 
-import androidx.annotation.NonNull;
-
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.mirea.kt.ribo.users.User;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
@@ -28,7 +22,7 @@ public class ChatUtil {
         addChatIdToUser(user.getUserId(), chatId);
     }
 
-    private static String generateChatId (String userId1, String userId2) {
+    private static String generateChatId(String userId1, String userId2) {
         String sumUser1User2 = userId1 + userId2;
         char[] charArray = sumUser1User2.toCharArray();
         Arrays.sort(charArray);
@@ -56,7 +50,7 @@ public class ChatUtil {
     private static String addIdToString(String str, String chatId) {
         if (str.isEmpty()) {
             str += chatId;
-        }else {
+        } else {
             str += "," + chatId;
         }
         return str;

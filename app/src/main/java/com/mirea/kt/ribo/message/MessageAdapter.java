@@ -14,13 +14,14 @@ import com.mirea.kt.ribo.R;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder>{
+public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
     private ArrayList<Message> messages;
 
-    public MessageAdapter (ArrayList<Message> messages) {
+    public MessageAdapter(ArrayList<Message> messages) {
         this.messages = messages;
     }
+
     @NonNull
     @Override
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,23 +42,23 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         return messages.size();
     }
 
-//    @Override
-//    public int getItemViewType(int position) {
-//        if (messages.get(position).getOwnerId().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getUid()))) {
-//           return R.layout.   сообщение от нашего current пользователя
-//        } else {
-//            return R.layout.  сообщение не от нашего пользователя
-//        }
-//    }
+    @Override
+    public int getItemViewType(int position) {
+        if (messages.get(position).getOwnerId().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getUid()))) {
+            return R.layout.item_own_message;
+        } else {
+            return R.layout.item_other_message;
+        }
+    }
 
-    public static class MessageViewHolder extends RecyclerView.ViewHolder{
+    public static class MessageViewHolder extends RecyclerView.ViewHolder {
         private TextView messageTv;
         private TextView dateTv;
+
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
-
-//            messageTv = itemView.findViewById(R.id.message_tv);
-//            dateTv = itemView.findViewById(R.id.message_date_tv);
+            messageTv = itemView.findViewById(R.id.message);
+            dateTv = itemView.findViewById(R.id.message_date);
         }
     }
 }

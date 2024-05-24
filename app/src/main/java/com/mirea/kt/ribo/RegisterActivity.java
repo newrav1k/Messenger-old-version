@@ -78,21 +78,18 @@ public class RegisterActivity extends AppCompatActivity {
                                         uploadImage();
                                         Toast.makeText(getApplicationContext(), R.string.successful_registration, Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(getApplicationContext(), MessengerActivity.class));
-                                    }
-                                    else {
+                                        finish();
+                                    } else {
                                         Toast.makeText(getApplicationContext(), R.string.account_already_exists, Toast.LENGTH_LONG).show();
                                     }
                                 });
-                    }
-                    else {
+                    } else {
                         Toast.makeText(getApplicationContext(), R.string.mismatch_passwords, Toast.LENGTH_LONG).show();
                     }
-                }
-                else {
+                } else {
                     Toast.makeText(getApplicationContext(), R.string.length_passwords, Toast.LENGTH_LONG).show();
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(getApplicationContext(), R.string.empty_fields, Toast.LENGTH_LONG).show();
             }
         });
@@ -166,8 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
-        }
-        else {
+        } else {
             return super.onOptionsItemSelected(item);
         }
     }

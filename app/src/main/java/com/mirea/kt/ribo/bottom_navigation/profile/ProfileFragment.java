@@ -32,6 +32,7 @@ import com.mirea.kt.ribo.R;
 import com.mirea.kt.ribo.databinding.FragmentProfileBinding;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
@@ -54,7 +55,9 @@ public class ProfileFragment extends Fragment {
         binding.logoutButton.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getContext(), LoginActivity.class));
+            getActivity().finish();
         });
+
         binding.friendsButton.setOnClickListener(v -> {
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new FriendsFragment()).commit();
@@ -75,17 +78,16 @@ public class ProfileFragment extends Fragment {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String username = snapshot.child("username").getValue().toString();
-                        String status = snapshot.child("status").getValue().toString();
-                        String profile_image = snapshot.child("profile_image").getValue().toString();
+                        String username = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
+                        String status = Objects.requireNonNull(snapshot.child("status").getValue()).toString();
+                        String profile_image = Objects.requireNonNull(snapshot.child("profile_image").getValue()).toString();
 
                         binding.username.setText(username);
                         binding.status.setText(status);
 
                         if (!profile_image.isEmpty()) {
                             Glide.with(getContext()).load(profile_image).into(binding.profileImage);
-                        }
-                        else {
+                        } else {
                             binding.profileImage.setImageResource(R.drawable.anime_icon);
                         }
                     }

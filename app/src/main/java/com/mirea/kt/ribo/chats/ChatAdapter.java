@@ -1,5 +1,6 @@
 package com.mirea.kt.ribo.chats;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mirea.kt.ribo.ChatActivity;
 import com.mirea.kt.ribo.R;
 
 import java.util.ArrayList;
@@ -63,6 +65,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                         }
                     }
                 });
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), ChatActivity.class);
+            intent.putExtra("chatId", chats.get(position).getChatId());
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
 
     @Override

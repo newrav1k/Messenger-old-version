@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -58,8 +59,12 @@ public class ChatsFragment extends Fragment {
                     chats.add(new Chat(chatId, chat_name, userId1, userId2));
                 }
 
-                binding.chats.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-                binding.chats.setAdapter(new ChatAdapter(chats));
+                if(!chats.isEmpty()) {
+                    binding.chats.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+                    binding.chats.setAdapter(new ChatAdapter(chats));
+                } else {
+                    binding.chats.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                }
             }
 
             @Override

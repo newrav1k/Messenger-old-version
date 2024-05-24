@@ -1,7 +1,12 @@
 package com.mirea.kt.ribo.utils;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mirea.kt.ribo.users.User;
 
 import java.lang.reflect.Array;
@@ -24,7 +29,7 @@ public class ChatUtil {
     }
 
     private static String generateChatId (String userId1, String userId2) {
-        String sumUser1User2 = userId2 + userId2;
+        String sumUser1User2 = userId1 + userId2;
         char[] charArray = sumUser1User2.toCharArray();
         Arrays.sort(charArray);
 
@@ -37,10 +42,13 @@ public class ChatUtil {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         String chats = task.getResult().getValue().toString();
-                        String chatsUptd = addIdToString(chats, chatId);
 
-                        FirebaseDatabase.getInstance().getReference().child("Users").child(userId)
-                                .child("chats").setValue(chatsUptd);
+                        if (!chats.contains(chatId)) {
+                            String chatsUptd = addIdToString(chats, chatId);
+
+                            FirebaseDatabase.getInstance().getReference().child("Users").child(userId)
+                                    .child("chats").setValue(chatsUptd);
+                        }
                     }
                 });
     }

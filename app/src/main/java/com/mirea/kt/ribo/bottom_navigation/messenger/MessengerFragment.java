@@ -28,16 +28,18 @@ public class MessengerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentMessengerBinding.inflate(inflater, container, false);
 
-        String[] chats = FirebaseDatabase.getInstance().getReference().child("Users")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("chats")
-                .get().toString().split(",");
-        if (chats.length == 0) {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(binding.fragmentMessenger.getId(), new UsersFragment()).commit();
-            binding.topNavigationView.setSelectedItemId(R.id.users);
-        } else {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(binding.fragmentMessenger.getId(), new ChatsFragment()).commit();
-            binding.topNavigationView.setSelectedItemId(R.id.chats);
-        }
+        getActivity().getSupportFragmentManager().beginTransaction().replace(binding.fragmentMessenger.getId(), new UsersFragment()).commit();
+        binding.topNavigationView.setSelectedItemId(R.id.users);
+//        String[] chats = FirebaseDatabase.getInstance().getReference().child("Users")
+//                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("chats")
+//                .get().toString().split(",");
+//        if (chats.length == 0) {
+//            getActivity().getSupportFragmentManager().beginTransaction().replace(binding.fragmentMessenger.getId(), new UsersFragment()).commit();
+//            binding.topNavigationView.setSelectedItemId(R.id.users);
+//        } else {
+//            getActivity().getSupportFragmentManager().beginTransaction().replace(binding.fragmentMessenger.getId(), new ChatsFragment()).commit();
+//            binding.topNavigationView.setSelectedItemId(R.id.chats);
+//        }
 
         HashMap<Integer, Fragment> fragments = new HashMap<Integer, Fragment>() {{
             put(R.id.users, new UsersFragment());

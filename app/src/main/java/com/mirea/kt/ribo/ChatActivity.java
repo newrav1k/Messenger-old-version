@@ -1,6 +1,7 @@
 package com.mirea.kt.ribo;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,10 @@ import com.mirea.kt.ribo.databinding.ActivityChatBinding;
 import com.mirea.kt.ribo.message.Message;
 import com.mirea.kt.ribo.message.MessageAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity {
@@ -29,20 +33,48 @@ public class ChatActivity extends AppCompatActivity {
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        updateView();
+        String chatId = getIntent().getStringExtra("chatId");
+
+        updateView(chatId);
+
+        binding.sendMessage.setOnClickListener(v -> {
+            String message = binding.enterMessage.getText().toString();
+            if (message.isEmpty()) {
+                Toast.makeText(this, "Поле ввода сообщения не может быть пустым", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH.mm");
+            String date = simpleDateFormat.format(new Date());
+
+            binding.enterMessage.setText("");
+            sendMessage(chatId, message, date);
+        });
 
         binding.addToFriend.setOnClickListener(v -> {
 
         });
     }
 
-    private void updateView() {
-        loadMessages();
+    private void updateView(String chatId) {
+        loadMessages(chatId);
         loadPartnerInfo();
     }
 
-    private void loadMessages() {
-        String chatId = getIntent().getStringExtra("chatId");
+    public void sendMessage(String chatId, String message, String date) {
+        if (chatId == null) return;
+
+        HashMap<String, String> messageInfo = new HashMap<>();
+        messageInfo.put("text", message);
+        messageInfo.put("ownerId", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
+        messageInfo.put("date", date);
+
+        FirebaseDatabase.getInstance().getReference().child("Chats")
+                .child(chatId)
+                .child("messages").push().setValue(messageInfo);
+    }
+
+    private void loadMessages(String chatId) {
         if (chatId == null) {
             return;
         }

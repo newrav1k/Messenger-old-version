@@ -9,6 +9,12 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class ChatUtil {
+
+    public static String getChatId(User user) {
+        return generateChatId(Objects.requireNonNull(FirebaseAuth.getInstance()
+                .getCurrentUser()).getUid(), user.getUserId());
+    }
+
     public static void createChat(User user) {
         String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         HashMap<String, String> chatInfo = new HashMap<>();
@@ -38,10 +44,10 @@ public class ChatUtil {
                         String chats = task.getResult().getValue().toString();
 
                         if (!chats.contains(chatId)) {
-                            String chatsUptd = addIdToString(chats, chatId);
+                            String chatsUpdated = addIdToString(chats, chatId);
 
                             FirebaseDatabase.getInstance().getReference().child("Users").child(userId)
-                                    .child("chats").setValue(chatsUptd);
+                                    .child("chats").setValue(chatsUpdated);
                         }
                     }
                 });

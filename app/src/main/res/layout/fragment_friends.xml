@@ -6,10 +6,9 @@
     android:gravity="center"
     tools:context="bottom_navigation.profile.FriendsFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/friends"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="друзья"
-        android:gravity="center"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

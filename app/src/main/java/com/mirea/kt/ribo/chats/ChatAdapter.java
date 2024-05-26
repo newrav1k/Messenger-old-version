@@ -25,7 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
-    private ArrayList<Chat> chats;
+    private final ArrayList<Chat> chats;
 
     public ChatAdapter(ArrayList<Chat> chats) {
         this.chats = chats;
@@ -59,6 +59,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                             String profile_image = task.getResult().getValue().toString();
                             if (!profile_image.isEmpty()) {
                                 Glide.with(holder.itemView.getContext()).load(profile_image).into(holder.chat_image);
+                            } else {
+                                holder.chat_image.setImageResource(R.drawable.anime_icon);
                             }
                         } catch (Exception exception) {
                             Toast.makeText(holder.itemView.getContext(), R.string.unknown_error, Toast.LENGTH_LONG).show();
@@ -79,9 +81,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        CircleImageView chat_image;
-        TextView chat_name;
+        private final CircleImageView chat_image;
+        private final TextView chat_name;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

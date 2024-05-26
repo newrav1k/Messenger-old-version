@@ -97,57 +97,6 @@
                 android:padding="8dp"
                 android:text="@string/vibration_notifications" />
 
-            <!-- Чаты -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/chat_settings"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <!-- Размер шрифта -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/font_size"
-                    android:textSize="16sp" />
-
-                <Spinner
-                    android:id="@+id/font_size_spinner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:entries="@array/font_size_array" />
-            </LinearLayout>
-
-            <!-- Тема -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/theme"
-                    android:textSize="16sp" />
-
-                <Spinner
-                    android:id="@+id/theme_spinner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:entries="@array/theme_array" />
-            </LinearLayout>
-
         </LinearLayout>
 
     </ScrollView>

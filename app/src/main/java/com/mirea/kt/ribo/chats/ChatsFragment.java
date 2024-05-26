@@ -19,18 +19,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mirea.kt.ribo.R;
-import com.mirea.kt.ribo.databinding.FragmentChatBinding;
+import com.mirea.kt.ribo.databinding.FragmentChatsBinding;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class ChatsFragment extends Fragment {
-    private FragmentChatBinding binding;
+    private FragmentChatsBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentChatBinding.inflate(inflater, container, false);
+        binding = FragmentChatsBinding.inflate(inflater, container, false);
 
         loadChats();
 

@@ -1,11 +1,11 @@
 package com.mirea.kt.ribo.users;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,10 +19,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mirea.kt.ribo.ChatActivity;
 import com.mirea.kt.ribo.databinding.FragmentUsersBinding;
+import com.mirea.kt.ribo.utils.ChatUtil;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class UsersFragment extends Fragment {
 
@@ -51,15 +54,18 @@ public class UsersFragment extends Fragment {
                             }
 
                             String userId = userSnapshot.getKey();
-                            String username = userSnapshot.child("username").getValue().toString();
-                            String profile_image = userSnapshot.child("profile_image").getValue().toString();
+                            String username = Objects.requireNonNull(userSnapshot.child("username").getValue()).toString();
+                            String profile_image = Objects.requireNonNull(userSnapshot.child("profile_image").getValue()).toString();
 
                             users.add(new User(userId, username, profile_image));
                         }
                         UserAdapter.onUserClickListener onUserClickListener = new UserAdapter.onUserClickListener() {
                             @Override
                             public void onUserClickListener(User user, int position) {
-                                Toast.makeText(getContext(), "Выбран пользователь " + user.getUsername(), Toast.LENGTH_SHORT).show();
+                                ChatUtil.createChat(user);
+                                Intent intent = new Intent(getContext(), ChatActivity.class);
+                                intent.putExtra("chatId", ChatUtil.getChatId(user));
+                                startActivity(new Intent(intent));
                             }
                         };
 

@@ -7,10 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import com.mirea.kt.ribo.R;
 import com.mirea.kt.ribo.chats.ChatsFragment;
 import com.mirea.kt.ribo.databinding.FragmentMessengerBinding;
@@ -28,18 +27,7 @@ public class MessengerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentMessengerBinding.inflate(inflater, container, false);
 
-        getActivity().getSupportFragmentManager().beginTransaction().replace(binding.fragmentMessenger.getId(), new UsersFragment()).commit();
-        binding.topNavigationView.setSelectedItemId(R.id.users);
-//        String[] chats = FirebaseDatabase.getInstance().getReference().child("Users")
-//                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("chats")
-//                .get().toString().split(",");
-//        if (chats.length == 0) {
-//            getActivity().getSupportFragmentManager().beginTransaction().replace(binding.fragmentMessenger.getId(), new UsersFragment()).commit();
-//            binding.topNavigationView.setSelectedItemId(R.id.users);
-//        } else {
-//            getActivity().getSupportFragmentManager().beginTransaction().replace(binding.fragmentMessenger.getId(), new ChatsFragment()).commit();
-//            binding.topNavigationView.setSelectedItemId(R.id.chats);
-//        }
+        updateView();
 
         HashMap<Integer, Fragment> fragments = new HashMap<Integer, Fragment>() {{
             put(R.id.users, new UsersFragment());
@@ -53,5 +41,13 @@ public class MessengerFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    private void updateView() {
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
+
+        getActivity().getSupportFragmentManager().beginTransaction().replace(binding.fragmentMessenger.getId(), new UsersFragment()).commit();
+        binding.topNavigationView.setSelectedItemId(R.id.users);
     }
 }

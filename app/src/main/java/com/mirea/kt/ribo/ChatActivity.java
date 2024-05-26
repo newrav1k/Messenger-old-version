@@ -1,10 +1,17 @@
 package com.mirea.kt.ribo;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
@@ -33,6 +40,16 @@ public class ChatActivity extends AppCompatActivity {
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Toolbar toolbar = binding.toolbar;
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setTitle("");
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         String chatId = getIntent().getStringExtra("chatId");
 
         updateView(chatId);
@@ -40,10 +57,11 @@ public class ChatActivity extends AppCompatActivity {
         binding.sendMessage.setOnClickListener(v -> {
             String message = binding.enterMessage.getText().toString();
             if (message.isEmpty()) {
-                Toast.makeText(this, "Поле ввода сообщения не может быть пустым", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.message_input_field_cannot_be_empty, Toast.LENGTH_LONG).show();
                 return;
             }
 
+            @SuppressLint("SimpleDateFormat")
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH.mm");
             String date = simpleDateFormat.format(new Date());
 
@@ -51,18 +69,25 @@ public class ChatActivity extends AppCompatActivity {
             sendMessage(chatId, message, date);
         });
 
-        binding.addToFriend.setOnClickListener(v -> {
+        binding.addFriendButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
+            @Override
+            public void onClick(View v) {
 
+            }
         });
     }
 
     private void updateView(String chatId) {
-        loadMessages(chatId);
-        loadPartnerInfo();
+        uploadMessages(chatId);
+        uploadPartnerInfo();
+        uploadFriendStatus();
     }
 
     public void sendMessage(String chatId, String message, String date) {
-        if (chatId == null) return;
+        if (chatId == null) {
+            return;
+        }
 
         HashMap<String, String> messageInfo = new HashMap<>();
         messageInfo.put("text", message);
@@ -74,7 +99,7 @@ public class ChatActivity extends AppCompatActivity {
                 .child("messages").push().setValue(messageInfo);
     }
 
-    private void loadMessages(String chatId) {
+    private void uploadMessages(String chatId) {
         if (chatId == null) {
             return;
         }
@@ -109,7 +134,7 @@ public class ChatActivity extends AppCompatActivity {
                 });
     }
 
-    private void loadPartnerInfo() {
+    private void uploadPartnerInfo() {
         String chatId = getIntent().getStringExtra("chatId");
         if (chatId == null) {
             return;
@@ -132,6 +157,8 @@ public class ChatActivity extends AppCompatActivity {
 
                             if (!profile_image.isEmpty()) {
                                 Glide.with(getApplicationContext()).load(profile_image).into(binding.profileImage);
+                            } else {
+                                binding.profileImage.setImageResource(R.drawable.anime_icon);
                             }
                         }
 
@@ -140,8 +167,7 @@ public class ChatActivity extends AppCompatActivity {
 
                         }
                     });
-                }
-                else {
+                } else {
                     databaseReference.child(userId1).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -150,6 +176,8 @@ public class ChatActivity extends AppCompatActivity {
 
                             if (!profile_image.isEmpty()) {
                                 Glide.with(getApplicationContext()).load(profile_image).into(binding.profileImage);
+                            } else {
+                                binding.profileImage.setImageResource(R.drawable.anime_icon);
                             }
                         }
 
@@ -166,5 +194,27 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void uploadFriendStatus() {
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.simple_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

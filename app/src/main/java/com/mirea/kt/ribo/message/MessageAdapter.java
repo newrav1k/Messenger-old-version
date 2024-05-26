@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
-    private ArrayList<Message> messages;
+    private final ArrayList<Message> messages;
 
     public MessageAdapter(ArrayList<Message> messages) {
         this.messages = messages;
@@ -52,8 +52,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     }
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
-        private TextView messageTv;
-        private TextView dateTv;
+        private final TextView messageTv;
+        private final TextView dateTv;
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -16,6 +16,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -49,7 +50,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
-        loadUserInfo();
+        updateView();
 
         binding.profileImage.setOnClickListener(v -> selectImage());
         binding.logoutButton.setOnClickListener(v -> {
@@ -69,7 +70,12 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        updateView();
+    }
+
+    private void updateView() {
         loadUserInfo();
+        updateToolbar();
     }
 
     private void loadUserInfo() {
@@ -149,4 +155,8 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    private void updateToolbar() {
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.profile_title);
+    }
 }

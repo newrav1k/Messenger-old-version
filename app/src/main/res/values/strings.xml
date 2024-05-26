@@ -28,9 +28,11 @@
     <string name="yours_chats">Ваши чаты</string>
 
     <!-- Для фрагмента профиля -->
+    <string name="profile_title">Профиль</string>
     <string name="friends">Друзья</string>
 
     <!-- Для чата -->
+    <string name="chat_title">Профиль</string>
     <string name="message">Сообщение</string>
 
     <!-- Для фрагмента настроек -->
@@ -41,18 +43,16 @@
     <string name="enable_notifications">Включить уведомления</string>
     <string name="sound_notifications">Звуковые уведомления</string>
     <string name="vibration_notifications">Вибрация</string>
-    <string name="chat_settings">Чаты</string>
-    <string name="font_size">Размер шрифта</string>
-    <string name="theme">Тема</string>
-    <string name="language">Язык</string>
 
     <!-- Toast's -->
     <string name="transition_in_progress">Выполняется переход…</string>
+    <string name="open_the_chat">Открываем чат…</string>
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="student_authorization">Студент авторизовался!</string>
     <string name="photo_uploaded_successfully">Фотография успешно загружена!</string>
     <string name="failed_to_send_request">Не удалось отправить запрос!</string>
     <string name="error_receiving_chats">Ошибка получения чатов!</string>
+    <string name="message_input_field_cannot_be_empty">Поле ввода сообщения не может быть пустым!</string>
     <string name="error_processing_request">Возникла ошибка при обработке запроса!</string>
     <string name="failed_to_connect_to_server">Не удалось подключиться к серверу!</string>
     <string name="successful_authorization">Вы успешно авторизовались!</string>

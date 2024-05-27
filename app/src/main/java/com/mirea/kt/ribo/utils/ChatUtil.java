@@ -59,10 +59,10 @@ public class ChatUtil {
                         String chats = task.getResult().getValue().toString();
 
                         if (!chats.contains(chatId)) {
-                            String chatsUptd = addIdToString(chats, chatId);
+                            String chatsUpdated = addIdToString(chats, chatId);
 
                             FirebaseDatabase.getInstance().getReference().child("Users").child(userId)
-                                    .child("chats").setValue(chatsUptd);
+                                    .child("chats").setValue(chatsUpdated);
                         }
                     }
                 });
@@ -83,8 +83,22 @@ public class ChatUtil {
     }
 
     public static boolean isExistingChat(User user) {
-        return FirebaseDatabase.getInstance().getReference()
+
+//        String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+//
+//        String chatId = generateChatId(uid, user.getUserId());
+//
+//        String chats = FirebaseDatabase.getInstance().getReference().child("Users").child(uid)
+//                .child("chats").get().getResult().getValue().toString();
+//
+//        return chats.contains(chatId);
+
+//
+        boolean result = FirebaseDatabase.getInstance().getReference()
                 .child("Chats").child(generateChatId(FirebaseAuth.getInstance().getCurrentUser().getUid(), user.getUserId()))
                 .get().isSuccessful();
+
+        return result;
     }
+
 }

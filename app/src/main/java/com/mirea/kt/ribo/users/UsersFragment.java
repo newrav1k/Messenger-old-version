@@ -62,7 +62,9 @@ public class UsersFragment extends Fragment {
                         UserAdapter.onUserClickListener onUserClickListener = new UserAdapter.onUserClickListener() {
                             @Override
                             public void onUserClickListener(User user, int position) {
-                                ChatUtil.createChat(user);
+                                if (!ChatUtil.isExistingChat(user)) {
+                                    ChatUtil.createChat(user);
+                                }
                                 Intent intent = new Intent(getContext(), ChatActivity.class);
                                 intent.putExtra("chatId", ChatUtil.getChatId(user));
                                 startActivity(new Intent(intent));

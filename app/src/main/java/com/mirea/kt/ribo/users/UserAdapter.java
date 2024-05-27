@@ -9,9 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.mirea.kt.ribo.R;
+import com.mirea.kt.ribo.utils.ChatUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -21,7 +25,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         void onUserClickListener(User user, int position);
     }
 
-    private final onUserClickListener onUserClickListener;
+    private onUserClickListener onUserClickListener;
     private ArrayList<User> users;
 
     public UserAdapter(ArrayList<User> users, onUserClickListener onUserClickListener) {
@@ -43,12 +47,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.username.setText(user.getUsername());
 
         if (!user.getProfileImage().isEmpty()) {
-            Glide.with(holder.itemView.getContext()).load(user.getProfileImage()).into(holder.profile_image);
+            Glide.with(holder.itemView.getContext())
+                    .load(user.getProfileImage())
+                    .into(holder.profile_image);
         } else {
             holder.profile_image.setImageResource(R.drawable.anime_icon);
         }
 
-        holder.itemView.setOnClickListener(v -> onUserClickListener.onUserClickListener(user, holder.getAdapterPosition()));
+//        holder.itemView.setOnClickListener(v -> onUserClickListener.onUserClickListener(user, holder.getAdapterPosition()));
+
+        holder.itemView.setOnClickListener(v -> ChatUtil.createChat(user));
     }
 
     @Override
@@ -56,7 +64,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         return users.size();
     }
 
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         CircleImageView profile_image;
         TextView username;
 

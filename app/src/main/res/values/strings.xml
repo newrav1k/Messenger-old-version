@@ -30,6 +30,7 @@
     <!-- Для фрагмента профиля -->
     <string name="profile_title">Профиль</string>
     <string name="friends">Друзья</string>
+    <string name="profile_title">Профиль</string>
 
     <!-- Для чата -->
     <string name="chat_title">Профиль</string>
@@ -64,4 +65,5 @@
     <string name="mismatch_passwords">Пароли не совпадают!</string>
     <string name="length_passwords">Длина пароля должна превышать 6 символов!</string>
     <string name="not_filled">Поля должны быть заполнены!</string>
+    <string name="message_input_field_cannot_be_empty">Поле ввода сообщения не может быть пустым!</string>
 </resources>
